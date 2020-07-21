@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using Microsoft.Extensions.Configuration.FileExtensions;
+using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-
-
+using DataAccess.EntityFramework;
+using DataAccess.Interfaces;
+using DataAccess.Repositories;
+using Microsoft.Extensions.Configuration;
 
 namespace Root
 {
@@ -13,14 +16,18 @@ namespace Root
     {
         public CompositionRoot() { }
 
-        public static void injectDependencies(IServiceCollection services)
+        public static void InjectDependencies(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(opts => opts.Options.("database"));
-            services.AddScoped<DatabaseContext>();
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+            services.AddDbContext<HopeContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("Development")));
+            services.AddScoped<HopeContext>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IAuthorRepository, AuthorRepository>();
-            services.AddScoped<IAuthorService, AuthorService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //services.AddScoped<IAuthorRepository, AuthorRepository>();
+            //services.AddScoped<IAuthorService, AuthorService>();
+            //services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }
