@@ -23,7 +23,10 @@ namespace DataAccess.Models
         public string TratoEspecial { get; set; }
         [ForeignKey("Denuncia")]
         public int IdDenuncia { get; set; }
-        public Denuncia Denuncia { get; set; }
+        public ICollection<Denuncia> Denuncias { get; set; }
+        [ForeignKey("Persona")]
+        public int IdPersona { get; set; }
+        public Persona Persona { get; set; }
 
 
     }

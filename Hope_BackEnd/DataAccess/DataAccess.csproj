@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200722041156_Fix_Relationships_1.cs" />
+    <Compile Remove="Migrations\20200722041156_Fix_Relationships_1.Designer.cs" />
+    <Compile Remove="Migrations\20200722042407_Initial-Migration.cs" />
+    <Compile Remove="Migrations\20200722042407_Initial-Migration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />

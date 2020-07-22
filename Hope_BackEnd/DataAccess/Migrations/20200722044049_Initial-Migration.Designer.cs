@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(HopeContext))]
-    [Migration("20200717053432_Initial-Migration")]
+    [Migration("20200722044049_Initial-Migration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,15 +97,20 @@ namespace DataAccess.Migrations
                     b.Property<string>("HaciaDondeSeDirigiaDireccion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("InformacionAdicionalId")
+                        .HasColumnType("int");
+
                     b.Property<string>("NumeroDenunciaPolicia")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PersonaId")
+                    b.Property<int?>("PersonaDenuncianteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonaId");
+                    b.HasIndex("InformacionAdicionalId");
+
+                    b.HasIndex("PersonaDenuncianteId");
 
                     b.ToTable("Denuncias");
                 });
@@ -117,10 +122,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdDenuncia")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdInformacionPoliciaAsignado")
+                    b.Property<int?>("DenunciaId")
                         .HasColumnType("int");
 
                     b.Property<int?>("InformacionPoliciaId")
@@ -128,7 +130,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdDenuncia");
+                    b.HasIndex("DenunciaId");
 
                     b.HasIndex("InformacionPoliciaId");
 
@@ -177,12 +179,12 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdPersona")
+                    b.Property<int?>("PersonaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdPersona");
+                    b.HasIndex("PersonaId");
 
                     b.ToTable("DireccionVivienda");
                 });
@@ -224,9 +226,6 @@ namespace DataAccess.Migrations
                     b.Property<int>("IdNacionalidad")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdPersona")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdSexo")
                         .HasColumnType("int");
 
@@ -242,10 +241,12 @@ namespace DataAccess.Migrations
                     b.Property<string>("NumIdentificacion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PersonaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdPersona")
-                        .IsUnique();
+                    b.HasIndex("PersonaId");
 
                     b.ToTable("InformacionBasicas");
                 });
@@ -275,6 +276,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("IdEstadoCuerpo")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdPersona")
+                        .HasColumnType("int");
+
                     b.Property<int>("Peso")
                         .HasColumnType("int");
 
@@ -283,8 +287,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdDenuncia")
-                        .IsUnique();
+                    b.HasIndex("IdPersona");
 
                     b.ToTable("InformacionDesaparecidos");
                 });
@@ -296,23 +299,18 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DenunciaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPersona")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdRango")
                         .HasColumnType("int");
 
                     b.Property<int>("IdSupervisor")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PersonaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("DenunciaId");
-
-                    b.HasIndex("IdPersona");
+                    b.HasIndex("PersonaId");
 
                     b.ToTable("InformacionPolicias");
                 });
@@ -345,6 +343,26 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Personas");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.PersonaDenunciante", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IdParentesco")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InformacionBasicaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InformacionBasicaId");
+
+                    b.ToTable("PersonaDenunciante");
                 });
 
             modelBuilder.Entity("DataAccess.Models.Ropa", b =>
@@ -409,10 +427,10 @@ namespace DataAccess.Migrations
                     b.Property<bool>("Confirmado")
                         .HasColumnType("bit");
 
-                    b.Property<int>("IdInformacionBasica")
+                    b.Property<int>("IdTipoTelefono")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdTipoTelefono")
+                    b.Property<int?>("InformacionBasicaId")
                         .HasColumnType("int");
 
                     b.Property<int>("NumTelefono")
@@ -420,7 +438,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdInformacionBasica");
+                    b.HasIndex("InformacionBasicaId");
 
                     b.ToTable("PersonaDenunciantes");
                 });
@@ -445,21 +463,23 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.Denuncia", b =>
                 {
-                    b.HasOne("DataAccess.Models.Persona", null)
+                    b.HasOne("DataAccess.Models.InformacionDesaparecido", "InformacionAdicional")
                         .WithMany("Denuncias")
-                        .HasForeignKey("PersonaId");
+                        .HasForeignKey("InformacionAdicionalId");
+
+                    b.HasOne("DataAccess.Models.PersonaDenunciante", "PersonaDenunciante")
+                        .WithMany()
+                        .HasForeignKey("PersonaDenuncianteId");
                 });
 
             modelBuilder.Entity("DataAccess.Models.DenunciasPoliciasAsignado", b =>
                 {
                     b.HasOne("DataAccess.Models.Denuncia", "Denuncia")
                         .WithMany("PoliciasAsignados")
-                        .HasForeignKey("IdDenuncia")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DenunciaId");
 
                     b.HasOne("DataAccess.Models.InformacionPolicia", "InformacionPolicia")
-                        .WithMany("DenunciasAsignadas")
+                        .WithMany()
                         .HasForeignKey("InformacionPoliciaId");
                 });
 
@@ -476,9 +496,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("DataAccess.Models.Persona", "Persona")
                         .WithMany("DireccionVivienda")
-                        .HasForeignKey("IdPersona")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonaId");
                 });
 
             modelBuilder.Entity("DataAccess.Models.Discapacidad", b =>
@@ -493,32 +511,31 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.InformacionBasica", b =>
                 {
                     b.HasOne("DataAccess.Models.Persona", "Persona")
-                        .WithOne("InformacionBasica")
-                        .HasForeignKey("DataAccess.Models.InformacionBasica", "IdPersona")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("PersonaId");
                 });
 
             modelBuilder.Entity("DataAccess.Models.InformacionDesaparecido", b =>
                 {
-                    b.HasOne("DataAccess.Models.Denuncia", "Denuncia")
-                        .WithOne("InformacionAdicional")
-                        .HasForeignKey("DataAccess.Models.InformacionDesaparecido", "IdDenuncia")
+                    b.HasOne("DataAccess.Models.Persona", "Persona")
+                        .WithMany()
+                        .HasForeignKey("IdPersona")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("DataAccess.Models.InformacionPolicia", b =>
                 {
-                    b.HasOne("DataAccess.Models.Denuncia", null)
-                        .WithMany("InformacionPoliciasAsignados")
-                        .HasForeignKey("DenunciaId");
-
                     b.HasOne("DataAccess.Models.Persona", "Persona")
                         .WithMany()
-                        .HasForeignKey("IdPersona")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonaId");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.PersonaDenunciante", b =>
+                {
+                    b.HasOne("DataAccess.Models.InformacionBasica", "InformacionBasica")
+                        .WithMany()
+                        .HasForeignKey("InformacionBasicaId");
                 });
 
             modelBuilder.Entity("DataAccess.Models.Ropa", b =>
@@ -543,9 +560,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("DataAccess.Models.InformacionBasica", "InformacionBasica")
                         .WithMany("Telefonos")
-                        .HasForeignKey("IdInformacionBasica")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InformacionBasicaId");
                 });
 #pragma warning restore 612, 618
         }

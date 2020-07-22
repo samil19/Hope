@@ -15,9 +15,9 @@ namespace DataAccess.Models
         public ICollection<DireccionDesaparicion> LugarVisto { get; set; }
         public DateTime FechaDesaparicion { get; set; }
         public string HaciaDondeSeDirigiaDireccion { get; set; }
-        public InformacionDesaparecido InformacionAdicional { get; set; }
-        public ICollection<InformacionPolicia> InformacionPoliciasAsignados { get; set; }
+        public InformacionDesaparecido InformacionDesaparecido { get; set; }
         public ICollection<DenunciasPoliciasAsignado> PoliciasAsignados { get; set; }
+        public PersonaDenunciante PersonaDenunciante { get; set; }
         
 
     }

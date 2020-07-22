@@ -11,8 +11,6 @@ namespace DataAccess.Models
         public int Id { get; set; }
         //Console diccionario
         public int IdParentesco { get; set; }
-        [ForeignKey("Persona")]
-        public int IdPersona { get; set; }
-        public Persona Persona { get; set; }
+        public InformacionBasica InformacionBasica { get; set; }
     }
 }

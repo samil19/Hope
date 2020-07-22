@@ -16,7 +16,5 @@ namespace DataAccess.Models
         public int Edad { get; set; }
         //Se agrego aqui para poder usar la direccion en notificaciones reactivas por zona, tanto para policia como para ciudadanos
         public ICollection<DireccionVivienda> DireccionVivienda { get; set; }
-        public InformacionBasica InformacionBasica { get; set; }
-        public ICollection<Denuncia> Denuncias { get; set; }
     }
 }

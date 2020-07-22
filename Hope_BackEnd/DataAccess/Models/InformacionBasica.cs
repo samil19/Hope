@@ -13,8 +13,6 @@ namespace DataAccess.Models
         public int IdTipoSangre { get; set; }
         public int Idioma { get; set; }
         public ICollection<Telefono> Telefonos { get; set; }
-        [ForeignKey("Persona")]
-        public int IdPersona { get; set; }
         public Persona Persona { get; set; }
 
     }

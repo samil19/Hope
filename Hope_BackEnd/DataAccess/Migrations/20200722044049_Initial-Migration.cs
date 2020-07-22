@@ -40,45 +40,22 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Denuncias",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NumeroDenunciaPolicia = table.Column<string>(nullable: true),
-                    FechaDenuncia = table.Column<DateTime>(nullable: false),
-                    FechaDesaparicion = table.Column<DateTime>(nullable: false),
-                    HaciaDondeSeDirigiaDireccion = table.Column<string>(nullable: true),
-                    PersonaId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Denuncias", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Denuncias_Personas_PersonaId",
-                        column: x => x.PersonaId,
-                        principalTable: "Personas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DireccionVivienda",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdPersona = table.Column<int>(nullable: false)
+                    PersonaId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DireccionVivienda", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DireccionVivienda_Personas_IdPersona",
-                        column: x => x.IdPersona,
+                        name: "FK_DireccionVivienda_Personas_PersonaId",
+                        column: x => x.PersonaId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,36 +70,17 @@ namespace DataAccess.Migrations
                     IdSexo = table.Column<int>(nullable: false),
                     IdTipoSangre = table.Column<int>(nullable: false),
                     Idioma = table.Column<int>(nullable: false),
-                    IdPersona = table.Column<int>(nullable: false)
+                    PersonaId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InformacionBasicas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InformacionBasicas_Personas_IdPersona",
-                        column: x => x.IdPersona,
+                        name: "FK_InformacionBasicas_Personas_PersonaId",
+                        column: x => x.PersonaId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DireccionDesaparicion",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdDenuncia = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DireccionDesaparicion", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DireccionDesaparicion_Denuncias_IdDenuncia",
-                        column: x => x.IdDenuncia,
-                        principalTable: "Denuncias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -138,15 +96,16 @@ namespace DataAccess.Migrations
                     Peso = table.Column<int>(nullable: false),
                     Apariencia = table.Column<string>(nullable: true),
                     TratoEspecial = table.Column<string>(nullable: true),
-                    IdDenuncia = table.Column<int>(nullable: false)
+                    IdDenuncia = table.Column<int>(nullable: false),
+                    IdPersona = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InformacionDesaparecidos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InformacionDesaparecidos_Denuncias_IdDenuncia",
-                        column: x => x.IdDenuncia,
-                        principalTable: "Denuncias",
+                        name: "FK_InformacionDesaparecidos_Personas_IdPersona",
+                        column: x => x.IdPersona,
+                        principalTable: "Personas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -159,24 +118,37 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdRango = table.Column<int>(nullable: false),
                     IdSupervisor = table.Column<int>(nullable: false),
-                    IdPersona = table.Column<int>(nullable: false),
-                    DenunciaId = table.Column<int>(nullable: true)
+                    PersonaId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InformacionPolicias", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InformacionPolicias_Denuncias_DenunciaId",
-                        column: x => x.DenunciaId,
-                        principalTable: "Denuncias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_InformacionPolicias_Personas_IdPersona",
-                        column: x => x.IdPersona,
+                        name: "FK_InformacionPolicias_Personas_PersonaId",
+                        column: x => x.PersonaId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonaDenunciante",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdParentesco = table.Column<int>(nullable: false),
+                    InformacionBasicaId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonaDenunciante", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PersonaDenunciante_InformacionBasicas_InformacionBasicaId",
+                        column: x => x.InformacionBasicaId,
+                        principalTable: "InformacionBasicas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -188,17 +160,17 @@ namespace DataAccess.Migrations
                     IdTipoTelefono = table.Column<int>(nullable: false),
                     NumTelefono = table.Column<int>(nullable: false),
                     Confirmado = table.Column<bool>(nullable: false),
-                    IdInformacionBasica = table.Column<int>(nullable: false)
+                    InformacionBasicaId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersonaDenunciantes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PersonaDenunciantes_InformacionBasicas_IdInformacionBasica",
-                        column: x => x.IdInformacionBasica,
+                        name: "FK_PersonaDenunciantes_InformacionBasicas_InformacionBasicaId",
+                        column: x => x.InformacionBasicaId,
                         principalTable: "InformacionBasicas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -314,30 +286,78 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Denuncias",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NumeroDenunciaPolicia = table.Column<string>(nullable: true),
+                    FechaDenuncia = table.Column<DateTime>(nullable: false),
+                    FechaDesaparicion = table.Column<DateTime>(nullable: false),
+                    HaciaDondeSeDirigiaDireccion = table.Column<string>(nullable: true),
+                    InformacionAdicionalId = table.Column<int>(nullable: true),
+                    PersonaDenuncianteId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Denuncias", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Denuncias_InformacionDesaparecidos_InformacionAdicionalId",
+                        column: x => x.InformacionAdicionalId,
+                        principalTable: "InformacionDesaparecidos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Denuncias_PersonaDenunciante_PersonaDenuncianteId",
+                        column: x => x.PersonaDenuncianteId,
+                        principalTable: "PersonaDenunciante",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DenunciasPoliciasAsignados",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdInformacionPoliciaAsignado = table.Column<int>(nullable: false),
                     InformacionPoliciaId = table.Column<int>(nullable: true),
-                    IdDenuncia = table.Column<int>(nullable: false)
+                    DenunciaId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DenunciasPoliciasAsignados", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DenunciasPoliciasAsignados_Denuncias_IdDenuncia",
-                        column: x => x.IdDenuncia,
+                        name: "FK_DenunciasPoliciasAsignados_Denuncias_DenunciaId",
+                        column: x => x.DenunciaId,
                         principalTable: "Denuncias",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DenunciasPoliciasAsignados_InformacionPolicias_InformacionPoliciaId",
                         column: x => x.InformacionPoliciaId,
                         principalTable: "InformacionPolicias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DireccionDesaparicion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdDenuncia = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DireccionDesaparicion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DireccionDesaparicion_Denuncias_IdDenuncia",
+                        column: x => x.IdDenuncia,
+                        principalTable: "Denuncias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -353,14 +373,19 @@ namespace DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Denuncias_PersonaId",
+                name: "IX_Denuncias_InformacionAdicionalId",
                 table: "Denuncias",
-                column: "PersonaId");
+                column: "InformacionAdicionalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DenunciasPoliciasAsignados_IdDenuncia",
+                name: "IX_Denuncias_PersonaDenuncianteId",
+                table: "Denuncias",
+                column: "PersonaDenuncianteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DenunciasPoliciasAsignados_DenunciaId",
                 table: "DenunciasPoliciasAsignados",
-                column: "IdDenuncia");
+                column: "DenunciaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DenunciasPoliciasAsignados_InformacionPoliciaId",
@@ -373,9 +398,9 @@ namespace DataAccess.Migrations
                 column: "IdDenuncia");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DireccionVivienda_IdPersona",
+                name: "IX_DireccionVivienda_PersonaId",
                 table: "DireccionVivienda",
-                column: "IdPersona");
+                column: "PersonaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Discapacidads_IdInformacionDesaparecido",
@@ -384,31 +409,29 @@ namespace DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_InformacionBasicas_IdPersona",
+                name: "IX_InformacionBasicas_PersonaId",
                 table: "InformacionBasicas",
-                column: "IdPersona",
-                unique: true);
+                column: "PersonaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InformacionDesaparecidos_IdDenuncia",
+                name: "IX_InformacionDesaparecidos_IdPersona",
                 table: "InformacionDesaparecidos",
-                column: "IdDenuncia",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InformacionPolicias_DenunciaId",
-                table: "InformacionPolicias",
-                column: "DenunciaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InformacionPolicias_IdPersona",
-                table: "InformacionPolicias",
                 column: "IdPersona");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonaDenunciantes_IdInformacionBasica",
+                name: "IX_InformacionPolicias_PersonaId",
+                table: "InformacionPolicias",
+                column: "PersonaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonaDenunciante_InformacionBasicaId",
+                table: "PersonaDenunciante",
+                column: "InformacionBasicaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonaDenunciantes_InformacionBasicaId",
                 table: "PersonaDenunciantes",
-                column: "IdInformacionBasica");
+                column: "InformacionBasicaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ropas_IdInformacionDesaparecido",
@@ -457,13 +480,16 @@ namespace DataAccess.Migrations
                 name: "InformacionPolicias");
 
             migrationBuilder.DropTable(
-                name: "InformacionBasicas");
+                name: "Denuncias");
 
             migrationBuilder.DropTable(
                 name: "InformacionDesaparecidos");
 
             migrationBuilder.DropTable(
-                name: "Denuncias");
+                name: "PersonaDenunciante");
+
+            migrationBuilder.DropTable(
+                name: "InformacionBasicas");
 
             migrationBuilder.DropTable(
                 name: "Personas");

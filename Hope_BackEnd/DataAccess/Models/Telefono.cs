@@ -13,8 +13,6 @@ namespace DataAccess.Models
         public int NumTelefono { get; set; }
         public bool Confirmado { get; set; }
         //Agregar a la persona del telefono?
-        [ForeignKey("InformacionBasica")]
-        public int IdInformacionBasica { get; set; }
         public InformacionBasica InformacionBasica { get; set; }
     }
 }

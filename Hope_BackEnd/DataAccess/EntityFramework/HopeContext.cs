@@ -18,7 +18,8 @@ namespace DataAccess.EntityFramework
         public DbSet<InformacionDesaparecido> InformacionDesaparecidos { get; set; }
         public DbSet<InformacionPolicia> InformacionPolicias { get; set; }
         public DbSet<Persona> Personas { get; set; }
-        public DbSet<Telefono> PersonaDenunciantes { get; set; }
+        public DbSet<PersonaDenunciante> PersonaDenunciantes { get; set; }
+        public DbSet<Telefono> Telefono { get; set; }
         public DbSet<Ropa> Ropas { get; set; }
         public DbSet<Cabello> Cabellos { get; set; }
         public DbSet<Barba> Barbas { get; set; }
