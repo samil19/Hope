@@ -42,9 +42,12 @@ namespace DataAccess.Repositories
 
         public void Add(TEntity entity)
         {
-             _entity.Add(entity);
+            _entity.Add(entity);
         }
-
+        public TEntity Insert(TEntity entity)
+        {
+            return _entity.Add(entity).Entity;
+        }
         public void AddRange(IEnumerable<TEntity> entities)
         {
              _entity.AddRange(entities);

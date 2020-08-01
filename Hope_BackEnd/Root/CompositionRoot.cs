@@ -9,6 +9,7 @@ using DataAccess.EntityFramework;
 using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using Microsoft.Extensions.Configuration;
+using DataAccess;
 
 namespace Root
 {
@@ -27,7 +28,8 @@ namespace Root
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             //services.AddScoped<IAuthorRepository, AuthorRepository>();
             //services.AddScoped<IAuthorService, AuthorService>();
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //services.AddScoped<IPersonaRepository, PersonaRepository>();
         }
     }
 }

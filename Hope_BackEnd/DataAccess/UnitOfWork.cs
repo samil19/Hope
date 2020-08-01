@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DataAccess
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly HopeContext _context;
         public UnitOfWork(HopeContext context)
@@ -40,5 +40,14 @@ namespace DataAccess
         public ITatuajeRepository Tatuaje {get; private set;}
         public ITelefonoRepository Telefono {get; private set;}
 
+        public int Complete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace DataAccess.Interfaces
         TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
 
         void Add(TEntity entity);
+        TEntity Insert(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
 
         void Remove(TEntity entity);
