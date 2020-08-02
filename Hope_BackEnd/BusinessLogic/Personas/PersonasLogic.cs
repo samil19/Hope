@@ -1,6 +1,8 @@
-﻿using Common.DTOs;
+﻿using AutoMapper;
+using Common.DTOs;
 using DataAccess;
 using DataAccess.EntityFramework;
+using DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,15 +13,19 @@ namespace BusinessLogic.Personas
     {
         public readonly HopeContext _context;
         public readonly UnitOfWork unitOfWork;
-        public PersonasLogic(HopeContext context)
+        public readonly IMapper _mapper;
+        public PersonasLogic(HopeContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
             unitOfWork = new UnitOfWork(_context);
         }
-        public int Insert(PersonaDto data)
+        public void Insert(PersonaDto data)
         {
-            unitOfWork.Persona.Insert(data);
-            return 
+            Persona dataT = _mapper.Map<Persona>(data);
+            unitOfWork.Persona.Insert(dataT);
+            unitOfWork.Complete();
+
         }
     }
 }

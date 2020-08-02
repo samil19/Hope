@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLogic.Personas;
 using Common.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
     public class PersonaController : ControllerBase
     {
+        private readonly PersonasLogic _personasLogic;
+        public PersonaController(PersonasLogic personasLogic)
+        {
+            _personasLogic = personasLogic;
+        }
         // GET: api/<PersonaController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -29,9 +34,10 @@ namespace API.Controllers
 
         // POST api/<PersonaController>
         [HttpPost]
-        public void Post([FromBody] PersonaDto data)
+        public IActionResult Post([FromBody] PersonaDto data)
         {
-
+            _personasLogic.Insert(data);
+            return Ok();
         }
 
         // PUT api/<PersonaController>/5

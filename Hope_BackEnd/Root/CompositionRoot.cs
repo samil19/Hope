@@ -10,6 +10,10 @@ using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using Microsoft.Extensions.Configuration;
 using DataAccess;
+using AutoMapper;
+using BusinessLogic.Personas;
+using Common.AutoMapper;
+using System.Reflection;
 
 namespace Root
 {
@@ -24,11 +28,13 @@ namespace Root
             .AddJsonFile("appsettings.json")
             .Build();
             services.AddDbContext<HopeContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("Development")));
-            services.AddScoped<HopeContext>();
+            //services.AddScoped<HopeContext>();
+            services.AddScoped<PersonasLogic>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             //services.AddScoped<IAuthorRepository, AuthorRepository>();
             //services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
             //services.AddScoped<IPersonaRepository, PersonaRepository>();
         }
     }
