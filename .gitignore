@@ -619,3 +619,10 @@ FodyWeavers.xsd
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
 #####
+
+
+.DS_Store
+node_modules/
+npm-debug.log
+.idea/
+dist/
