@@ -6,10 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Log.cs" />
     <Compile Remove="Migrations\20200722041156_Fix_Relationships_1.cs" />
     <Compile Remove="Migrations\20200722041156_Fix_Relationships_1.Designer.cs" />
     <Compile Remove="Migrations\20200722042407_Initial-Migration.cs" />
     <Compile Remove="Migrations\20200722042407_Initial-Migration.Designer.cs" />
+    <Compile Remove="Migrations\20201019045334_Adding-User-Rol-Permisos-Log-LogIn.cs" />
+    <Compile Remove="Migrations\20201019045334_Adding-User-Rol-Permisos-Log-LogIn.Designer.cs" />
+    <Compile Remove="Migrations\20201019045727_Adding-User-Rol-Permisos-Log-LogIn.cs" />
+    <Compile Remove="Migrations\20201019045727_Adding-User-Rol-Permisos-Log-LogIn.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,10 +25,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\NewFolder\" />
   </ItemGroup>
 
 </Project>

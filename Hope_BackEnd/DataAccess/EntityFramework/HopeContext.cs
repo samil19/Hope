@@ -1,4 +1,6 @@
 ﻿using DataAccess.Models;
+using DataAccess.Models.Account;
+using DataAccess.Models.Logging;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,5 +28,11 @@ namespace DataAccess.EntityFramework
         public DbSet<Discapacidad> Discapacidads { get; set; }
         public DbSet<Tatuaje> Tatuajes { get; set; }
         public DbSet<DenunciasPoliciasAsignado> DenunciasPoliciasAsignados { get; set; }
+        public DbSet<User> Usuarios { get; set; }
+        public DbSet<Rol> Roles { get; set; }
+        public DbSet<Permiso> Permisos { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<LogIn> LogIns { get; set; }
+        public DbSet<PermisoRol> PermisosRoles { get; set; }
     }
 }
