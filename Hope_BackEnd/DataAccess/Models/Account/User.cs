@@ -5,9 +5,8 @@ using System.Text;
 
 namespace DataAccess.Models.Account
 {
-    public class User
+    public class User : Base
     {
-        public int Id { get; set; }
         public int RolId { get; set; }
         public int PersonaId { get; set; }
         public string UserName { get; set; }

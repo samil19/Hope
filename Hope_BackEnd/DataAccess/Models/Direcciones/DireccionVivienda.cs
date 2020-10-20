@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DataAccess.Models.Direcciones
 {
-    public class DireccionVivienda
+    public class DireccionVivienda : Base
     {
-        public int Id { get; set; }
+        
         public Persona Persona { get; set; }
     }
 }

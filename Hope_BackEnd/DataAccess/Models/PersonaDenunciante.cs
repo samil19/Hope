@@ -6,9 +6,9 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-    public class PersonaDenunciante
+    public class PersonaDenunciante : Base
     {
-        public int Id { get; set; }
+        
         //Console diccionario
         public int IdParentesco { get; set; }
         public InformacionBasica InformacionBasica { get; set; }

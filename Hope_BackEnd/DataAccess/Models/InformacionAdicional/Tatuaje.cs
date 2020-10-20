@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-    public class Tatuaje
+    public class Tatuaje : Base
     {
-        public int Id { get; set; }
+        
         public int IdLugar { get; set; }
         public int IdTatuaje { get; set; }
         public string Descripcion { get; set; }

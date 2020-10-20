@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DataAccess.Models.Logging
 {
-    public class LogIn
+    public class LogIn : Base
     {
-        public int Id { get; set; }
+        
         public int UserId { get; set; }
         public string Ip { get; set; }
         public DateTime FechaLogIn { get; set; }

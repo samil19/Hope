@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-    public class Cabello
+    public class Cabello : Base
     {
-        public int Id { get; set; }
+        
         public int IdColorCabello { get; set; }
         public int IdTipoCabello { get; set; }
         public int IdLargoCabello { get; set; }

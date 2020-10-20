@@ -4,9 +4,8 @@ using System.Text;
 
 namespace DataAccess.Models.Account
 {
-    public class PermisoRol
+    public class PermisoRol : Base
     {
-        public int Id { get; set; }
         public int RolId { get; set; }
         public int PermisoId { get; set; }
         public Rol Rol { get; set; }

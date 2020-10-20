@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccess.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : Base
     {
         TEntity Get(int id);
         IEnumerable<TEntity> GetAll();

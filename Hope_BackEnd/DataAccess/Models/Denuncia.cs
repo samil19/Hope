@@ -7,9 +7,8 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-    public class Denuncia
+    public class Denuncia : Base
     {
-        public int Id { get; set; }
         public string NumeroDenunciaPolicia { get; set; }
         public DateTime FechaDenuncia { get; set; }
         public ICollection<DireccionDesaparicion> LugarVisto { get; set; }

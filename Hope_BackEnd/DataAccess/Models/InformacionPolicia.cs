@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-    public class InformacionPolicia
+    public class InformacionPolicia : Base
     {
-        public int Id { get; set; }
+        
         public int IdRango { get; set; }
         public int IdSupervisor { get; set; }
         public Persona Persona { get; set; }

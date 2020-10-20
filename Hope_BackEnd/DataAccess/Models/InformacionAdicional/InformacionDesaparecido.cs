@@ -6,9 +6,9 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-    public class InformacionDesaparecido
+    public class InformacionDesaparecido : Base
     {
-        public int Id { get; set; }
+        
         public int IdColorOjos { get; set; }
         public int IdColorPiel { get; set; }
         public int IdEstadoCuerpo { get; set; }

@@ -4,9 +4,8 @@ using System.Text;
 
 namespace DataAccess.Models.Account
 {
-    public class Permiso
+    public class Permiso : Base
     {
-        public int Id { get; set; }
         public string Nombre { get; set; }
     }
 }

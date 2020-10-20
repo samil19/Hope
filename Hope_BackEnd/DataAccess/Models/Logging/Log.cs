@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DataAccess.Models.Logging
 {
-    public class Log
+    public class Log : Base
     {
-        public int Id { get; set; }
+        
         public string ElementTable { get; set; }
         public int ElementId { get; set; }
         public int LogInId { get; set; }

@@ -6,9 +6,9 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-    public class DenunciasPoliciasAsignado
+    public class DenunciasPoliciasAsignado : Base
     {
-        public int Id { get; set; }
+        
         public InformacionPolicia InformacionPolicia { get; set; }
         public Denuncia Denuncia { get; set; }
 
