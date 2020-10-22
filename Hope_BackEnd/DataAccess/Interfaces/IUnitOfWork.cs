@@ -18,6 +18,10 @@ IPersonaRepository Persona {get;}
 IRopaRepository Ropa {get;}
 ITatuajeRepository Tatuaje {get;}
 ITelefonoRepository Telefono {get;}
+        IRolRepository Rol { get; }
+        IPermisoRepository Permiso { get; }
+        IPermisoRolRepository PermisoRol { get; }
+        IUserRepository Usuario { get; }
         int Complete();
     }
 }

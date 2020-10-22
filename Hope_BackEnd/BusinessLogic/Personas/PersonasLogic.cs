@@ -22,10 +22,15 @@ namespace BusinessLogic.Personas
         }
         public void Insert(PersonaDto data)
         {
-            Persona dataT = _mapper.Map<Persona>(data);
-            unitOfWork.Persona.Insert(dataT);
+            Persona PersonaToDb = _mapper.Map<Persona>(data);
+            //unitOfWork.Persona.Insert(PersonaToDb);
             unitOfWork.Complete();
 
+        }
+        public void InsertPersonWithoutLog(PersonaDto data)
+        {
+            Persona PersonaToDb = _mapper.Map<Persona>(data);
+            unitOfWork.Persona.InsertWithoutLog(PersonaToDb);
         }
     }
 }

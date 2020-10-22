@@ -12,11 +12,12 @@ namespace DataAccess.Interfaces
         IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate);
         TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
 
-        void Add(TEntity entity);
-        TEntity Insert(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
+        void Add(TEntity entity, int LogInId);
+        TEntity Insert(TEntity entity, int LogInId);
+        void AddRange(IEnumerable<TEntity> entities, int LogInId);
 
-        void Remove(TEntity entity);
-        void RemoveRange(IEnumerable<TEntity> entities);
+        void Remove(TEntity entity, int LogInId);
+        void RemoveRange(IEnumerable<TEntity> entities, int LogInId);
+        TEntity InsertWithoutLog(TEntity entity);
     }
 }

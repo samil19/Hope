@@ -43,36 +43,45 @@ namespace DataAccess.Repositories
             return  _entity.SingleOrDefault(predicate);
         }
 
-        public void Add(TEntity entity)
+        public void Add(TEntity entity, int LogInId)
         {
             _entity.Add(entity);
             SendLog(entity, "INSERT");
         
         }
-        public TEntity Insert(TEntity entity)
+        
+        public TEntity Insert(TEntity entity, int LogInId)
         {
             TEntity ToReturn = _entity.Add(entity).Entity;
             SendLog(ToReturn, "INSERT");
             return ToReturn;
         }
-        public void AddRange(IEnumerable<TEntity> entities)
+        
+        public void AddRange(IEnumerable<TEntity> entities, int LogInId)
         {
             _entity.AddRange(entities);
             SendLogList(entities, "INSERT");
         }
 
-        public void Remove(TEntity entity)
+        public void Remove(TEntity entity, int LogInId)
         {
              _entity.Remove(entity);
             SendLog(entity, "DELETE");
 
         }
 
-        public void RemoveRange(IEnumerable<TEntity> entities)
+        public void RemoveRange(IEnumerable<TEntity> entities, int LogInId)
         {
              _entity.RemoveRange(entities);
                 SendLogList(entities,"DELETE");
         }
+
+        public TEntity InsertWithoutLog(TEntity entity)
+        {
+            TEntity ToReturn = _entity.Add(entity).Entity;
+            return ToReturn;
+        }
+
         private void SendLog(TEntity entity, string accion)
         {
             LogIntoDb(entity.GetType().ToString(), entity.Id, 0, accion);

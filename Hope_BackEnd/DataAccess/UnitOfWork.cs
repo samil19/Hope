@@ -23,6 +23,10 @@ namespace DataAccess
         public IRopaRepository Ropa { get; private set; }
         public ITatuajeRepository Tatuaje { get; private set; }
         public ITelefonoRepository Telefono { get; private set; }
+        public IUserRepository Usuario { get; private set; }
+        public IPermisoRepository Permiso { get; private set; }
+        public IPermisoRolRepository PermisoRol { get; private set; }
+        public IRolRepository Rol { get; private set; }
         public UnitOfWork(HopeContext context)
         {
             _context = context;
@@ -38,7 +42,11 @@ namespace DataAccess
         Ropa = new RopaRepository(_context);
         Tatuaje = new TatuajeRepository(_context);
         Telefono = new TelefonoRepository(_context);
-    }
+        Usuario = new UserRepository(_context);
+        Rol = new RolRepository(_context);
+            Permiso = new PermisoRepository(_context);
+            PermisoRol = new PermisoRolRepository(_context);
+        }
 
         public int Complete()
         {

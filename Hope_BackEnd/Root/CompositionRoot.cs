@@ -14,6 +14,7 @@ using AutoMapper;
 using BusinessLogic.Personas;
 using Common.AutoMapper;
 using System.Reflection;
+using BusinessLogic.Security;
 
 namespace Root
 {
@@ -30,6 +31,7 @@ namespace Root
             services.AddDbContext<HopeContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("Development")));
             //services.AddScoped<HopeContext>();
             services.AddScoped<PersonasLogic>();
+            services.AddScoped<SecurityLogic>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             //services.AddScoped<IAuthorRepository, AuthorRepository>();
             //services.AddScoped<IAuthorService, AuthorService>();
