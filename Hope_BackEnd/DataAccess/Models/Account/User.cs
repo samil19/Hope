@@ -9,9 +9,17 @@ namespace DataAccess.Models.Account
     {
         public int RolId { get; set; }
         public int PersonaId { get; set; }
+        [Required]
+        [MaxLength(20)]
         public string UserName { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Password { get; set; }
+        [Required]
+        public string Salt { get; set; }
+        [Required]
+        public string IpRegistro { get; set; }
         public Persona Persona { get; set; }
         public Rol Rol { get; set; }
 

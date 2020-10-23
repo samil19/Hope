@@ -15,6 +15,10 @@
     <Compile Remove="Migrations\20201019045334_Adding-User-Rol-Permisos-Log-LogIn.Designer.cs" />
     <Compile Remove="Migrations\20201019045727_Adding-User-Rol-Permisos-Log-LogIn.cs" />
     <Compile Remove="Migrations\20201019045727_Adding-User-Rol-Permisos-Log-LogIn.Designer.cs" />
+    <Compile Remove="Migrations\20201023025241_Agregando-NoNull.cs" />
+    <Compile Remove="Migrations\20201023025241_Agregando-NoNull.Designer.cs" />
+    <Compile Remove="Migrations\20201023030624_Agregando-NoNull.cs" />
+    <Compile Remove="Migrations\20201023030624_Agregando-NoNull.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

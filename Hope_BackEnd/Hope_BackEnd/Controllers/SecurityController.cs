@@ -48,7 +48,21 @@ namespace API.Controllers
             }
         }
 
-       
+        //[HttpPost]
+        //public IActionResult LogIn([FromBody] UserDto user)
+        //{
+        //    try
+        //    {
+        //        _securityLogic.CheckPassword(1,user.Password);
+        //        return Ok();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return StatusCode(500, e);
+        //    }
+        //}
+
+
 
         // PUT api/<SecurityController>/5
         [HttpPut("{id}")]
