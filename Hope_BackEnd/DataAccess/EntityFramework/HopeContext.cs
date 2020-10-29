@@ -34,5 +34,16 @@ namespace DataAccess.EntityFramework
         public DbSet<Log> Logs { get; set; }
         public DbSet<LogIn> LogIns { get; set; }
         public DbSet<PermisoRol> PermisosRoles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            builder.Entity<User>()
+                .HasIndex(u => u.UserName)
+                .IsUnique();
+        }
     }
 }
