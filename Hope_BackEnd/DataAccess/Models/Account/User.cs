@@ -7,8 +7,6 @@ namespace DataAccess.Models.Account
 {
     public class User : Base
     {
-        public int RolId { get; set; }
-        public int PersonaId { get; set; }
         [Required]
         [MaxLength(20)]
         public string UserName { get; set; }
@@ -21,7 +19,9 @@ namespace DataAccess.Models.Account
         public string Salt { get; set; }
         [Required]
         public string IpRegistro { get; set; }
+        public int PersonaId { get; set; }
         public Persona Persona { get; set; }
+        public int RolId { get; set; }
         public Rol Rol { get; set; }
 
     }

@@ -12,6 +12,7 @@ using System.Text;
 using Konscious.Security.Cryptography;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.Security
 {
@@ -25,6 +26,18 @@ namespace BusinessLogic.Security
             _context = context;
             _mapper = mapper;
             unitOfWork = new UnitOfWork(_context);
+        }
+
+        public LogIn InicioSesion(LogInUserDto incomingUser)
+        {
+            User user = _context.Usuarios.Include(t => t.Persona).FirstOrDefault(x => x.Email == incomingUser.Email);
+            bool resultCheck = CheckPassword(user.Salt, user.Password, incomingUser.Password);
+            if (resultCheck)
+            {
+                return new LogIn { User =  _mapper.Map<UserDto>(user), Result = true};
+            }
+            else
+                return new LogIn { User = null, Result = false };
         }
 
         public void RegistroUsuario(UserDto user)
@@ -82,19 +95,23 @@ namespace BusinessLogic.Security
             return new HashSalt { Hash = PasswordSalt, Salt = Token };
         }
 
-        public bool CheckPassword(int userId, string incomingPassword)
+        public bool CheckPassword(string dbSalt, string dbPassword, string incomingPassword)
         {
-            string passwordHashedSalted = _context.Usuarios.FirstOrDefault(x => x.Id == userId).Password;
-            string salt = _context.Usuarios.FirstOrDefault(x => x.Id == userId).Salt;
-            string incomingPasswordHashedSalted = HashSaltPassword(incomingPassword, salt).Hash; //Salted con salt de la DB
+            string passwordHashedSalted = dbPassword;
+            string incomingPasswordHashedSalted = HashSaltPassword(incomingPassword, dbSalt).Hash; //Salted con salt de la DB
             return incomingPasswordHashedSalted == passwordHashedSalted;
-            
         }
 
         private class HashSalt
         {
             public string Hash { get; set; }
             public string Salt { get; set; }
+        }
+
+        public class LogIn
+        {
+            public UserDto User { get; set; }
+            public bool Result { get; set; }
         }
 
         private static string ByteArrayToString(byte[] ba)

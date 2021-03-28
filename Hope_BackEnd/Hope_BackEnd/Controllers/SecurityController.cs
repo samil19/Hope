@@ -21,21 +21,6 @@ namespace API.Controllers
         {
             _securityLogic = securityLogic;
         }
-        // GET: api/<SecurityController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<SecurityController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<SecurityController>
         [HttpPost]
         public IActionResult Post([FromBody] UserDto user)
         {
@@ -66,32 +51,20 @@ namespace API.Controllers
             }
         }
 
-        //[HttpPost]
-        //public IActionResult LogIn([FromBody] UserDto user)
-        //{
-        //    try
-        //    {
-        //        _securityLogic.CheckPassword(1,user.Password);
-        //        return Ok();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e);
-        //    }
-        //}
-
-
-
-        // PUT api/<SecurityController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost]
+        [Route("LogIn")]
+        public IActionResult Post([FromBody] LogInUserDto user)
         {
+            try
+            {
+
+                return Ok(_securityLogic.InicioSesion(user));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
 
-        // DELETE api/<SecurityController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
